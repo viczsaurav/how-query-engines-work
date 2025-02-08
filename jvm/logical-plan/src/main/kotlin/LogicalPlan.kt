@@ -39,8 +39,11 @@ interface LogicalPlan {
 /** Format a logical plan in human-readable form */
 fun format(plan: LogicalPlan, indent: Int = 0): String {
   val b = StringBuilder()
+  // Indentation for the current node (depends on depth)
   0.until(indent).forEach { b.append("\t") }
+  // Append current node's string representation
   b.append(plan.toString()).append("\n")
+  // Recursively visit child nodes (DFS traversal)
   plan.children().forEach { b.append(format(it, indent + 1)) }
   return b.toString()
 }
